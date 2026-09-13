@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { HomeHeroContent } from "@/components/HomeHeroContent";
 import { HomeImageShowcase } from "@/components/HomeImageShowcase";
 import { HomeNavbar } from "@/components/HomeNavbar";
+import { HomePartnerSection } from "@/components/HomePartnerSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
 import { industries, portfolio, services, testimonials } from "@/data/site";
@@ -30,6 +31,7 @@ export default function HomePage() {
       </div>
       <main>
         <HomeImageShowcase />
+        <HomePartnerSection />
 
         <section className="section section-tight border-section">
           <div className="shell">
