@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { Footer } from "@/components/Footer";
+import { HomeHeroContent } from "@/components/HomeHeroContent";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
@@ -12,12 +13,17 @@ export default function HomePage() {
       <div className="home-hero-shell relative">
         <style>{`
           .home-hero-shell section[aria-labelledby="hero-title"] header,
-          .home-hero-shell section[aria-labelledby="svl-dark-hero-title"] header {
+          .home-hero-shell section[aria-labelledby="hero-title"] main,
+          .home-hero-shell section[aria-labelledby="hero-title"] footer,
+          .home-hero-shell section[aria-labelledby="svl-dark-hero-title"] header,
+          .home-hero-shell section[aria-labelledby="svl-dark-hero-title"] main,
+          .home-hero-shell section[aria-labelledby="svl-dark-hero-title"] footer {
             visibility: hidden !important;
             pointer-events: none !important;
           }
         `}</style>
         <HomeNavbar />
+        <HomeHeroContent />
         <div className="dark:hidden"><ReferenceHomeHero /></div>
         <div className="hidden dark:block"><DarkHomeHero /></div>
       </div>
