@@ -3,88 +3,51 @@
 import { useEffect } from "react";
 
 const DARK_VIDEO_TOKEN = "hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4";
-const FALLBACK_VIDEO = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4";
+const CHROME_FALLBACK_VIDEO = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4";
 
-function findDarkVideo() {
+function isGoogleChrome() {
+  const ua = navigator.userAgent;
+  return /Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua);
+}
+
+function findDarkHeroVideo() {
   return Array.from(document.querySelectorAll("video")).find((video) => {
     if (video.currentSrc.includes(DARK_VIDEO_TOKEN)) return true;
     return Array.from(video.querySelectorAll("source")).some((source) => source.src.includes(DARK_VIDEO_TOKEN));
   });
 }
 
-function enableFallback(video: HTMLVideoElement) {
-  if (video.dataset.svlVideoFallback === "1") return;
-  video.dataset.svlVideoFallback = "1";
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.preload = "auto";
-  video.style.filter = "brightness(0.62) saturate(0.72) contrast(1.1)";
-
-  video.replaceChildren();
-  const source = document.createElement("source");
-  source.src = FALLBACK_VIDEO;
-  source.type = "video/mp4";
-  video.appendChild(source);
-  video.load();
-  void video.play().catch(() => undefined);
-}
-
-function guardDarkVideo() {
-  if (document.documentElement.dataset.theme !== "dark") return () => undefined;
-
-  const video = findDarkVideo();
-  if (!video || video.dataset.svlVideoGuarded === "1") return () => undefined;
-
-  video.dataset.svlVideoGuarded = "1";
-  let playable = video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && !video.error;
-
-  const markPlayable = () => {
-    playable = true;
-  };
-
-  const failOver = () => {
-    if (!playable) enableFallback(video);
-  };
-
-  video.addEventListener("loadeddata", markPlayable, { once: true });
-  video.addEventListener("canplay", markPlayable, { once: true });
-  video.addEventListener("error", failOver, { once: true });
-
-  const source = video.querySelector("source");
-  source?.addEventListener("error", failOver, { once: true });
-
-  void video.play().catch(failOver);
-  const timeout = window.setTimeout(failOver, 3500);
-
-  return () => {
-    window.clearTimeout(timeout);
-    video.removeEventListener("loadeddata", markPlayable);
-    video.removeEventListener("canplay", markPlayable);
-    video.removeEventListener("error", failOver);
-    source?.removeEventListener("error", failOver);
-  };
-}
-
 export function VideoPlaybackGuard() {
   useEffect(() => {
-    let cleanup = guardDarkVideo();
+    // Edge can play the original dark hero video, so do not touch it there.
+    // Chrome on the affected machines cannot decode that source reliably.
+    if (!isGoogleChrome()) return;
 
-    const observer = new MutationObserver((records) => {
-      const themeChanged = records.some((record) => record.type === "attributes" && record.attributeName === "data-theme");
-      const treeChanged = records.some((record) => record.type === "childList");
-      if (!themeChanged && !treeChanged) return;
+    const video = findDarkHeroVideo();
+    if (!video || video.dataset.svlChromeFallback === "1") return;
 
-      cleanup();
-      cleanup = guardDarkVideo();
-    });
+    video.dataset.svlChromeFallback = "1";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
 
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Keep the dark-mode feel even though Chrome receives the compatible source.
+    video.style.filter = "brightness(0.58) saturate(0.68) contrast(1.12)";
+
+    // Setting video.src directly avoids source-selection ambiguity in Chrome.
+    video.src = CHROME_FALLBACK_VIDEO;
+    video.load();
+
+    const tryPlay = () => {
+      void video.play().catch(() => undefined);
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlay();
+    else video.addEventListener("loadeddata", tryPlay, { once: true });
 
     return () => {
-      cleanup();
-      observer.disconnect();
+      video.removeEventListener("loadeddata", tryPlay);
     };
   }, []);
 
