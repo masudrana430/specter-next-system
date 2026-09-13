@@ -86,7 +86,7 @@ export function HomeNavbar() {
   return (
     <>
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-[100] px-[clamp(14px,3vw,32px)] py-[clamp(16px,2.4vh,28px)] max-[720px]:px-[clamp(14px,4vw,24px)] [@media(max-height:700px)]:py-[14px]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-[clamp(14px,3vw,32px)] py-[clamp(16px,2.4vh,28px)] max-[720px]:px-[clamp(14px,4vw,24px)] [@media(max-height:700px)]:py-[14px]"
         onMouseLeave={() => setServicesOpen(false)}
       >
         <header className="pointer-events-auto mx-auto flex w-full max-w-[820px] items-center justify-center gap-[clamp(14px,2vw,24px)] max-[720px]:max-w-none max-[720px]:justify-between max-[720px]:gap-4">
