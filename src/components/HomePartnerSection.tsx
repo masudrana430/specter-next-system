@@ -3,12 +3,18 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+// Keep the lightweight animated preview media from the supplied reference.
+// They load quickly enough for a one-second cursor trail and preserve the
+// reference section's most important visual behavior.
 const trailImages = [
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_113640_ccf3cf97-d447-425b-a134-d7b09fc743fc.png&w=1280&q=85",
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_114219_414dfe80-f15c-4e25-bf52-b13721f4bd88.png&w=1280&q=85",
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_115253_c19ab167-8dd5-48b4-967d-b9f0d9d6e8fb.png&w=1280&q=85",
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_115237_fc519057-6e87-4abf-999a-9610b8b085b4.png&w=1280&q=85",
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_114355_752ba9e6-0942-4abb-9047-5d9bb16632e9.png&w=1280&q=85",
+  "https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif",
+  "https://motionsites.ai/assets/hero-portfolio-cosmic-preview-BpvWJ3Nc.gif",
+  "https://motionsites.ai/assets/hero-velorah-preview-CJNTtbpd.gif",
+  "https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif",
+  "https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif",
+  "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
+  "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
+  "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
 ];
 
 type TrailItem = {
@@ -23,27 +29,28 @@ export function HomePartnerSection() {
   const imageIndexRef = useRef(0);
   const trailRef = useRef<TrailItem[]>([]);
   const rafRef = useRef<number | null>(null);
-  const reduceMotionRef = useRef(false);
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncMotionPreference = () => {
-      reduceMotionRef.current = reducedMotion.matches;
-    };
-
-    syncMotionPreference();
-    reducedMotion.addEventListener?.("change", syncMotionPreference);
+    // Preload the complete trail set so newly spawned previews are visible
+    // immediately instead of spending most of their one-second lifetime loading.
+    const preloaded = trailImages.map((src) => {
+      const image = new Image();
+      image.src = src;
+      return image;
+    });
 
     const loop = (now: number) => {
       trailRef.current = trailRef.current.filter((item) => {
         const age = now - item.born;
+
         if (age >= 1000) {
           item.el.remove();
           return false;
         }
 
         const progress = age / 1000;
-        const scale = 1 - progress * 0.24;
+        const scale = 1 - progress * 0.25;
+
         item.el.style.opacity = String(1 - progress);
         item.el.style.transform = `${item.el.dataset.baseTransform ?? ""} scale(${scale})`;
         return true;
@@ -55,36 +62,42 @@ export function HomePartnerSection() {
     rafRef.current = requestAnimationFrame(loop);
 
     return () => {
-      reducedMotion.removeEventListener?.("change", syncMotionPreference);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       trailRef.current.forEach(({ el }) => el.remove());
       trailRef.current = [];
+      preloaded.forEach((image) => {
+        image.src = "";
+      });
     };
   }, []);
 
-  const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const moveCursor = (x: number, y: number) => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    cursor.style.left = `${x}px`;
+    cursor.style.top = `${y}px`;
+    cursor.style.opacity = "1";
+  };
+
+  const spawnTrailImage = (event: React.PointerEvent<HTMLDivElement>) => {
     const stage = stageRef.current;
-    if (!stage) return;
+    if (!stage || event.pointerType === "touch") return;
 
     const rect = stage.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    if (cursorRef.current) {
-      cursorRef.current.style.left = `${x}px`;
-      cursorRef.current.style.top = `${y}px`;
-      cursorRef.current.style.opacity = "1";
-    }
-
-    if (reduceMotionRef.current) return;
+    // Custom cursor should track every pointer frame, not the throttled image cadence.
+    moveCursor(x, y);
 
     const now = performance.now();
     if (now - lastSpawnRef.current < 80) return;
     lastSpawnRef.current = now;
 
     const image = document.createElement("img");
-    const rotation = Math.random() * 18 - 9;
-    const width = window.innerWidth < 768 ? 110 : 150;
+    const rotation = Math.random() * 20 - 10;
+    const width = window.innerWidth < 768 ? 105 : 150;
     const baseTransform = `translate(-50%, -50%) rotate(${rotation}deg)`;
     const isDark = document.documentElement.dataset.theme === "dark";
 
@@ -105,10 +118,12 @@ export function HomePartnerSection() {
     image.style.zIndex = "4";
     image.style.opacity = "1";
     image.style.transform = `${baseTransform} scale(1)`;
-    image.style.border = isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(5,26,36,0.08)";
     image.style.boxShadow = isDark
-      ? "0 16px 36px rgba(0,0,0,0.42)"
+      ? "0 16px 38px rgba(0,0,0,0.44)"
       : "0 12px 30px rgba(5,26,36,0.16)";
+    image.style.border = isDark
+      ? "1px solid rgba(255,255,255,0.14)"
+      : "1px solid rgba(5,26,36,0.08)";
     image.style.willChange = "transform, opacity";
 
     stage.appendChild(image);
@@ -125,22 +140,34 @@ export function HomePartnerSection() {
   return (
     <section className="w-full bg-white px-3 py-8 dark:bg-[#0b0b0b] md:px-5 md:py-12">
       <style>{`
-        .svl-partner-stage { cursor: auto; }
+        .svl-partner-stage {
+          isolation: isolate;
+          cursor: auto;
+        }
+        .svl-partner-cursor {
+          display: none;
+        }
         @media (hover: hover) and (pointer: fine) {
-          .svl-partner-stage { cursor: none; }
+          .svl-partner-stage {
+            cursor: none;
+          }
+          .svl-partner-cursor {
+            display: block;
+          }
         }
       `}</style>
 
       <div
         ref={stageRef}
-        onMouseMove={handlePointerMove}
-        onMouseLeave={clearTrail}
+        onPointerMove={spawnTrailImage}
+        onPointerEnter={spawnTrailImage}
+        onPointerLeave={clearTrail}
         className="svl-partner-stage relative mx-auto flex min-h-[520px] max-w-[1480px] select-none items-center justify-center overflow-hidden rounded-[28px] border border-black/[0.06] bg-[#f6f6f2] px-6 py-28 shadow-[0_6px_34px_rgba(5,26,36,0.07)] dark:border-white/10 dark:bg-[#111315] dark:shadow-[0_12px_45px_rgba(0,0,0,0.32)] md:min-h-[680px] md:rounded-[40px] md:py-44"
       >
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(255,255,255,0.82)_73%)] dark:hidden" />
-        <div className="pointer-events-none absolute inset-0 z-[1] hidden bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.015),rgba(0,0,0,0.42)_76%)] dark:block" />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1),rgba(255,255,255,0.76)_72%)] dark:hidden" />
+        <div className="pointer-events-none absolute inset-0 z-[1] hidden bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),rgba(0,0,0,0.4)_74%)] dark:block" />
 
-        <div className="relative z-10 flex max-w-[980px] flex-col items-center text-center">
+        <div className="pointer-events-none relative z-10 flex max-w-[980px] flex-col items-center text-center">
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#051A24]/55 dark:text-white/45 md:text-xs">
             Specter Visual Lab · One studio, thirteen disciplines
           </p>
@@ -167,7 +194,7 @@ export function HomePartnerSection() {
         <div
           ref={cursorRef}
           aria-hidden="true"
-          className="pointer-events-none absolute z-20 hidden size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#051A24] opacity-0 dark:bg-white md:block"
+          className="svl-partner-cursor pointer-events-none absolute z-20 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#051A24] opacity-0 dark:bg-white"
         />
       </div>
     </section>
