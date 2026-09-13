@@ -1,51 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
-import { HomepageDarkBg } from "@/components/HomepageDarkBg";
-import { SiteHeader } from "@/components/SiteHeader";
+import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
 import { industries, portfolio, services, testimonials } from "@/data/site";
 
 export default function HomePage() {
   return (
     <>
-      <SiteHeader />
+      <ReferenceHomeHero />
       <main>
-        <section className="home-hero" aria-labelledby="home-hero-title">
-          <HomepageDarkBg />
-
-          <div className="shell home-hero-inner">
-            <div className="home-trust-row hero-reveal hero-delay-1">
-              <div className="home-trust-avatars" aria-hidden="true">
-                <span><b>AI</b></span>
-                <span><b>3D</b></span>
-                <span><b>DEV</b></span>
-              </div>
-              <span className="home-trust-pill">13 disciplines. One integrated studio.</span>
-            </div>
-
-            <h1 id="home-hero-title" className="home-hero-title">
-              <span className="home-title-line hero-title-delay-1">Visual Intelligence</span>
-              <span className="home-title-line hero-title-delay-2">Designed To Evolve</span>
-            </h1>
-
-            <p className="home-hero-subhead hero-reveal hero-delay-2">
-              AI agents, brand systems, product experiences, visual production, post-production, SEO, and campaigns—connected in one production system built for modern brands.
-            </p>
-
-            <div className="home-hero-actions hero-reveal hero-delay-3">
-              <Link className="home-hero-cta home-hero-cta-primary" href="/start-a-project">Start a Project</Link>
-              <Link className="home-hero-cta home-hero-cta-secondary" href="/services">Explore Services</Link>
-            </div>
-          </div>
-
-          <div className="shell home-hero-stats" aria-label="Studio metrics">
-            <div className="home-hero-stat hero-reveal hero-delay-4"><span className="home-stat-icon">+</span><strong>13+</strong><small>Years Experience</small></div>
-            <div className="home-hero-stat hero-reveal hero-delay-5"><span className="home-stat-icon">#</span><strong>500+</strong><small>Projects Delivered</small></div>
-            <div className="home-hero-stat hero-reveal hero-delay-6"><span className="home-stat-icon">*</span><strong>13</strong><small>Integrated Disciplines</small></div>
-            <div className="home-hero-stat hero-reveal hero-delay-7"><span className="home-stat-icon">&lt;</span><strong>24–72h</strong><small>Typical Turnaround</small></div>
-          </div>
-        </section>
-
         <section className="section section-tight border-section">
           <div className="shell">
             <p className="section-kicker">Industries served</p>
