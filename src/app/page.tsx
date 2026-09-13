@@ -3,6 +3,7 @@ import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { Footer } from "@/components/Footer";
 import { HomeHeroContent } from "@/components/HomeHeroContent";
 import { HomeImageShowcase } from "@/components/HomeImageShowcase";
+import { HomeMotionMarquee } from "@/components/HomeMotionMarquee";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { HomePartnerSection } from "@/components/HomePartnerSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
@@ -32,6 +33,7 @@ export default function HomePage() {
       <main>
         <HomeImageShowcase />
         <HomePartnerSection />
+        <HomeMotionMarquee />
 
         <section className="section section-tight border-section">
           <div className="shell">
