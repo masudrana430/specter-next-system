@@ -18,7 +18,7 @@ function findDarkHeroVideo() {
   });
 }
 
-function playWhenReady(video: HTMLVideoElement) {
+function playWhenReady(video: HTMLVideoElement): () => void {
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
@@ -30,7 +30,7 @@ function playWhenReady(video: HTMLVideoElement) {
 
   if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
     play();
-    return () => undefined;
+    return () => {};
   }
 
   video.addEventListener("loadeddata", play, { once: true });
@@ -44,11 +44,11 @@ function playWhenReady(video: HTMLVideoElement) {
 
 export function VideoPlaybackGuard() {
   useEffect(() => {
-    let cleanupPlayback = () => undefined;
+    let cleanupPlayback: () => void = () => {};
 
     const syncVideoWithTheme = () => {
       cleanupPlayback();
-      cleanupPlayback = () => undefined;
+      cleanupPlayback = () => {};
 
       const video = findDarkHeroVideo();
       if (!video) return;
@@ -59,8 +59,8 @@ export function VideoPlaybackGuard() {
         return;
       }
 
-      // The dark hero is mounted while hidden in light mode. Explicitly restart
-      // playback once dark mode becomes visible instead of relying on autoplay
+      // The dark hero mounts while hidden in light mode. Restart playback
+      // after dark mode makes the hero visible instead of relying on autoplay
       // having started inside display:none.
       if (isGoogleChrome()) {
         if (video.dataset.svlChromeFallback !== "1") {
@@ -74,7 +74,7 @@ export function VideoPlaybackGuard() {
         video.style.removeProperty("filter");
       }
 
-      // Wait one paint so the dark hero is no longer display:none, then play.
+      // Wait two paints so display:none has been removed before calling play().
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           cleanupPlayback = playWhenReady(video);
