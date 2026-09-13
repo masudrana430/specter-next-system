@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { VideoPlaybackGuard } from "@/components/VideoPlaybackGuard";
 import "./tailwind.css";
 import "./globals.css";
 import "./theme.css";
@@ -37,7 +38,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <VideoPlaybackGuard />
+      </body>
     </html>
   );
 }
