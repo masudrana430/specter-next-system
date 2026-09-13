@@ -13,41 +13,86 @@ function isGoogleChrome() {
 function findDarkHeroVideo() {
   return Array.from(document.querySelectorAll("video")).find((video) => {
     if (video.currentSrc.includes(DARK_VIDEO_TOKEN)) return true;
+    if (video.src.includes(DARK_VIDEO_TOKEN)) return true;
     return Array.from(video.querySelectorAll("source")).some((source) => source.src.includes(DARK_VIDEO_TOKEN));
   });
 }
 
+function playWhenReady(video: HTMLVideoElement) {
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.autoplay = true;
+
+  const play = () => {
+    void video.play().catch(() => undefined);
+  };
+
+  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+    play();
+    return () => undefined;
+  }
+
+  video.addEventListener("loadeddata", play, { once: true });
+  video.addEventListener("canplay", play, { once: true });
+
+  return () => {
+    video.removeEventListener("loadeddata", play);
+    video.removeEventListener("canplay", play);
+  };
+}
+
 export function VideoPlaybackGuard() {
   useEffect(() => {
-    // Edge can play the original dark hero video, so do not touch it there.
-    // Chrome on the affected machines cannot decode that source reliably.
-    if (!isGoogleChrome()) return;
+    let cleanupPlayback = () => undefined;
 
-    const video = findDarkHeroVideo();
-    if (!video || video.dataset.svlChromeFallback === "1") return;
+    const syncVideoWithTheme = () => {
+      cleanupPlayback();
+      cleanupPlayback = () => undefined;
 
-    video.dataset.svlChromeFallback = "1";
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
+      const video = findDarkHeroVideo();
+      if (!video) return;
 
-    // Keep the dark-mode feel even though Chrome receives the compatible source.
-    video.style.filter = "brightness(0.58) saturate(0.68) contrast(1.12)";
+      const darkActive = document.documentElement.dataset.theme === "dark";
+      if (!darkActive) {
+        video.pause();
+        return;
+      }
 
-    // Setting video.src directly avoids source-selection ambiguity in Chrome.
-    video.src = CHROME_FALLBACK_VIDEO;
-    video.load();
+      // The dark hero is mounted while hidden in light mode. Explicitly restart
+      // playback once dark mode becomes visible instead of relying on autoplay
+      // having started inside display:none.
+      if (isGoogleChrome()) {
+        if (video.dataset.svlChromeFallback !== "1") {
+          video.dataset.svlChromeFallback = "1";
+          video.style.filter = "brightness(0.58) saturate(0.68) contrast(1.12)";
+          video.src = CHROME_FALLBACK_VIDEO;
+          video.load();
+        }
+      } else {
+        // Edge and other capable browsers keep the original dark source.
+        video.style.removeProperty("filter");
+      }
 
-    const tryPlay = () => {
-      void video.play().catch(() => undefined);
+      // Wait one paint so the dark hero is no longer display:none, then play.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          cleanupPlayback = playWhenReady(video);
+        });
+      });
     };
 
-    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) tryPlay();
-    else video.addEventListener("loadeddata", tryPlay, { once: true });
+    syncVideoWithTheme();
+
+    const themeObserver = new MutationObserver(() => syncVideoWithTheme());
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     return () => {
-      video.removeEventListener("loadeddata", tryPlay);
+      cleanupPlayback();
+      themeObserver.disconnect();
     };
   }, []);
 
