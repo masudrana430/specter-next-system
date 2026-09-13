@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { Footer } from "@/components/Footer";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
@@ -7,7 +8,8 @@ import { industries, portfolio, services, testimonials } from "@/data/site";
 export default function HomePage() {
   return (
     <>
-      <ReferenceHomeHero />
+      <div className="dark:hidden"><ReferenceHomeHero /></div>
+      <div className="hidden dark:block"><DarkHomeHero /></div>
       <main>
         <section className="section section-tight border-section">
           <div className="shell">
