@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { Footer } from "@/components/Footer";
 import { HomeHeroContent } from "@/components/HomeHeroContent";
+import { HomeImageShowcase } from "@/components/HomeImageShowcase";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
@@ -28,6 +29,8 @@ export default function HomePage() {
         <div className="hidden dark:block"><DarkHomeHero /></div>
       </div>
       <main>
+        <HomeImageShowcase />
+
         <section className="section section-tight border-section">
           <div className="shell">
             <p className="section-kicker">Industries served</p>
