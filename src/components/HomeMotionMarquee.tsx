@@ -180,24 +180,17 @@ export function HomeMotionMarquee() {
     <section className="svl-motion-marquee overflow-hidden py-20 md:py-28" aria-labelledby="svl-motion-title">
       <style>{`
         .svl-motion-marquee {
-          background-color: #f4f1ea;
+          background: #ffffff;
           color: #161616;
-          background-image:
-            linear-gradient(rgba(22,22,22,.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(22,22,22,.045) 1px, transparent 1px);
-          background-size: 36px 36px;
         }
         .svl-motion-card {
-          background: rgba(255,255,255,.94);
+          background: rgba(255,255,255,.96);
           border: 1px solid rgba(0,0,0,.10);
           box-shadow: 0 18px 50px rgba(30,25,18,.08);
         }
         [data-theme="dark"] .svl-motion-marquee {
-          background-color: #0b0b0b;
+          background: #0b0b0b;
           color: #f5f5f2;
-          background-image:
-            linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
         }
         [data-theme="dark"] .svl-motion-card {
           background: rgba(22,22,22,.94);
