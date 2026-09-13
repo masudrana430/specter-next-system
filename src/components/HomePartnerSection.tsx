@@ -182,12 +182,17 @@ export function HomePartnerSection() {
 
           <Link
             href="/start-a-project"
-            className="pointer-events-auto mt-8 inline-flex min-h-14 items-center gap-3 rounded-full bg-[#051A24] py-2 pl-2 pr-7 text-sm font-semibold text-white shadow-[0_12px_26px_rgba(5,26,36,0.16),inset_0_1px_7px_rgba(255,255,255,0.32)] dark:bg-white dark:text-black dark:shadow-[0_14px_30px_rgba(0,0,0,0.34),inset_0_1px_5px_rgba(255,255,255,0.6)] md:mt-10 md:text-base"
+            className="pointer-events-auto mt-8 inline-flex min-h-14 items-center gap-3 rounded-full border border-[#051A24]/10 bg-white py-2 pl-2 pr-3 text-sm font-semibold text-[#051A24] shadow-[0_12px_30px_rgba(5,26,36,0.10)] hover:bg-[#fbfbf8] dark:border-white/[0.14] dark:bg-[#181b1e] dark:text-white dark:shadow-[0_14px_34px_rgba(0,0,0,0.38)] dark:hover:bg-[#1d2024] md:mt-10 md:min-h-16 md:gap-4 md:pr-4 md:text-base"
           >
-            <span className="grid size-10 place-items-center rounded-full border border-white/20 bg-white/12 text-[11px] font-bold tracking-[-0.02em] dark:border-black/10 dark:bg-black/[0.06]">
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#051A24] text-[10px] font-bold tracking-[0.04em] text-white shadow-sm dark:bg-white dark:text-black md:size-12 md:text-[11px]">
               SVL
             </span>
-            <span>Start a project with Specter</span>
+            <span className="whitespace-nowrap px-1">Start a project with Specter</span>
+            <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#051A24]/10 bg-[#051A24]/[0.05] text-[#051A24] dark:border-white/10 dark:bg-white/[0.07] dark:text-white md:size-10" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                <path d="M3 7.5h8.5M8 4l3.5 3.5L8 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </Link>
         </div>
 
