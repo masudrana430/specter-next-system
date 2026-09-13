@@ -42,10 +42,10 @@ export function HomeHeroContent() {
           <div className="pointer-events-auto mt-[clamp(22px,3.2vh,34px)] flex flex-wrap justify-center gap-3 max-[520px]:w-full max-[520px]:px-4">
             <Link
               href="/start-a-project"
-              className="group relative inline-flex min-h-12 items-center justify-center overflow-hidden rounded-full border border-white bg-white px-7 text-[14px] font-semibold text-black shadow-[0_0_0_1px_rgba(255,255,255,0.14),0_8px_28px_rgba(0,0,0,0.22)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(255,255,255,0.38)] max-[520px]:flex-1"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white bg-white px-7 text-[14px] font-semibold shadow-[0_8px_28px_rgba(0,0,0,0.22)] max-[520px]:flex-1"
+              style={{ color: "#111111" }}
             >
-              <span className="absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/80 to-transparent transition-transform duration-700 group-hover:translate-x-[330%]" />
-              <span className="relative z-[1]">Start a Project</span>
+              Start a Project
             </Link>
             <Link
               href="/services"
