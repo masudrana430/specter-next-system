@@ -10,6 +10,7 @@ const navItems = [
   { label: "Portfolio", href: "/#portfolio" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const services = [
@@ -89,7 +90,7 @@ export function HomeNavbar() {
         className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-[clamp(14px,3vw,32px)] py-[clamp(16px,2.4vh,28px)] max-[720px]:px-[clamp(14px,4vw,24px)] [@media(max-height:700px)]:py-[14px]"
         onMouseLeave={() => setServicesOpen(false)}
       >
-        <header className="pointer-events-auto mx-auto flex w-full max-w-[820px] items-center justify-center gap-[clamp(14px,2vw,24px)] max-[720px]:max-w-none max-[720px]:justify-between max-[720px]:gap-4">
+        <header className="pointer-events-auto mx-auto flex w-full max-w-[920px] items-center justify-center gap-[clamp(14px,2vw,24px)] max-[720px]:max-w-none max-[720px]:justify-between max-[720px]:gap-4">
           <Link
             href="/"
             aria-label="Specter Visual Lab home"
@@ -101,7 +102,7 @@ export function HomeNavbar() {
 
           <nav
             aria-label="Primary navigation"
-            className="flex h-[clamp(44px,5.2vw,48px)] max-w-[560px] flex-[1_1_560px] items-stretch justify-between rounded-full border border-transparent bg-white px-2 py-1 shadow-[0_4px_14px_rgba(0,0,0,0.14)] dark:border-white/20 dark:bg-black/60 max-[720px]:hidden"
+            className="flex h-[clamp(44px,5.2vw,48px)] max-w-[650px] flex-[1_1_650px] items-stretch justify-between rounded-full border border-transparent bg-white px-2 py-1 shadow-[0_4px_14px_rgba(0,0,0,0.14)] dark:border-white/20 dark:bg-black/60 max-[720px]:hidden"
           >
             {navItems.map((item, index) => (
               <Link
