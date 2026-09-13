@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
-type ThemeToggleProps = { variant?: "switch" | "pill" };
+type ThemeToggleProps = { variant?: "switch" | "pill" | "icon" };
 
 const STORAGE_KEY = "svl-theme";
 
@@ -11,6 +11,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
   localStorage.setItem(STORAGE_KEY, theme);
+  window.dispatchEvent(new CustomEvent("svl-theme-change", { detail: { theme } }));
 }
 
 function SunIcon() {
@@ -43,9 +44,17 @@ export function ThemeToggle({ variant = "switch" }: ThemeToggleProps) {
       document.documentElement.style.colorScheme = event.newValue;
       setTheme(event.newValue);
     };
+    const onThemeChange = (event: Event) => {
+      const custom = event as CustomEvent<{ theme?: Theme }>;
+      if (custom.detail?.theme === "dark" || custom.detail?.theme === "light") setTheme(custom.detail.theme);
+    };
 
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("svl-theme-change", onThemeChange);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("svl-theme-change", onThemeChange);
+    };
   }, []);
 
   const nextTheme: Theme = theme === "dark" ? "light" : "dark";
@@ -53,6 +62,20 @@ export function ThemeToggle({ variant = "switch" }: ThemeToggleProps) {
     applyTheme(nextTheme);
     setTheme(nextTheme);
   };
+
+  if (variant === "icon") {
+    return (
+      <button
+        type="button"
+        onClick={changeTheme}
+        aria-label={`Switch to ${nextTheme} mode`}
+        title={`Switch to ${nextTheme} mode`}
+        className="grid size-10 shrink-0 place-items-center rounded-[6px] border border-white/20 bg-black/45 text-white backdrop-blur-xl transition-[border-color,background,box-shadow,transform] duration-300 hover:-translate-y-px hover:border-white/45 hover:bg-white/10 hover:shadow-[0_0_18px_rgba(200,210,230,0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      </button>
+    );
+  }
 
   if (variant === "pill") {
     return (
