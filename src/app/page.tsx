@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { Footer } from "@/components/Footer";
+import { HomeNavbar } from "@/components/HomeNavbar";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
 import { industries, portfolio, services, testimonials } from "@/data/site";
@@ -8,8 +9,18 @@ import { industries, portfolio, services, testimonials } from "@/data/site";
 export default function HomePage() {
   return (
     <>
-      <div className="dark:hidden"><ReferenceHomeHero /></div>
-      <div className="hidden dark:block"><DarkHomeHero /></div>
+      <div className="home-hero-shell relative">
+        <style>{`
+          .home-hero-shell section[aria-labelledby="hero-title"] header,
+          .home-hero-shell section[aria-labelledby="svl-dark-hero-title"] header {
+            visibility: hidden !important;
+            pointer-events: none !important;
+          }
+        `}</style>
+        <HomeNavbar />
+        <div className="dark:hidden"><ReferenceHomeHero /></div>
+        <div className="hidden dark:block"><DarkHomeHero /></div>
+      </div>
       <main>
         <section className="section section-tight border-section">
           <div className="shell">
