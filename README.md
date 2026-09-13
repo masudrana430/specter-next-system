@@ -148,8 +148,23 @@ npm start
 
 ## Where to customize the design
 
-The logic is already separated from presentation. The main styling file is:
+The logic is already separated from presentation. Core styling is split into:
 
-`src/app/globals.css`
+- `src/app/globals.css` — structural/component styling and semantic theme tokens
+- `src/app/theme.css` — cross-project light/dark theme behavior and theme toggle
+- `src/app/home-hero.css` — homepage hero and dark cinematic composition
 
-You can replace it entirely, or progressively move components into Tailwind/shadcn/your preferred design system. Core content/data lives in `src/data/*` and application behavior lives in `src/components/*`.
+Core content/data lives in `src/data/*` and application behavior lives in `src/components/*`.
+
+## Theme system and homepage hero
+
+The project now includes a persistent light/dark theme toggle in the global header.
+
+- Theme preference is stored in `localStorage` as `svl-theme`.
+- First visit follows the operating-system color preference.
+- An inline bootstrap script in `src/app/layout.tsx` applies the theme before React hydrates to avoid a light/dark flash.
+- All core surfaces, forms, pricing states, service navigation, and content sections use shared theme variables from `src/app/globals.css`.
+- `src/components/ThemeToggle.tsx` controls the theme.
+- `src/components/HomepageDarkBg.tsx` contains the homepage cinematic background layer.
+
+In dark mode, the homepage hero uses the supplied visual reference as inspiration: full-viewport moving background, floating pill navigation, overlapping capability badges, dotted-display headline treatment, rounded glowing CTAs, entrance motion, and a four-metric hero footer. The light theme keeps the same content architecture with a clean light presentation.
