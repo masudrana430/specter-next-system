@@ -162,7 +162,7 @@ export function HomePartnerSection() {
         onPointerMove={spawnTrailImage}
         onPointerEnter={spawnTrailImage}
         onPointerLeave={clearTrail}
-        className="svl-partner-stage relative mx-auto flex min-h-[520px] max-w-[1480px] select-none items-center justify-center overflow-hidden rounded-[28px] border border-black/[0.06] bg-[#f6f6f2] px-6 py-28 shadow-[0_6px_34px_rgba(5,26,36,0.07)] dark:border-white/10 dark:bg-[#111315] dark:shadow-[0_12px_45px_rgba(0,0,0,0.32)] md:min-h-[680px] md:rounded-[40px] md:py-44"
+        className="svl-partner-stage relative mx-auto flex min-h-[520px] max-w-[1280px] select-none items-center justify-center overflow-hidden rounded-[28px] border border-black/[0.06] bg-[#f6f6f2] px-6 py-28 shadow-[0_6px_34px_rgba(5,26,36,0.07)] dark:border-white/10 dark:bg-[#111315] dark:shadow-[0_12px_45px_rgba(0,0,0,0.32)] md:min-h-[680px] md:rounded-[40px] md:py-44"
       >
         <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1),rgba(255,255,255,0.76)_72%)] dark:hidden" />
         <div className="pointer-events-none absolute inset-0 z-[1] hidden bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),rgba(0,0,0,0.4)_74%)] dark:block" />
