@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { getServiceSlug, services as serviceData } from "@/data/site";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -13,21 +14,10 @@ const navItems = [
   { label: "Careers", href: "/careers" },
 ];
 
-const services = [
-  ["AI Agent Development", "/services#service-01"],
-  ["Business Sketch", "/services#service-02"],
-  ["Branding", "/services#service-03"],
-  ["Product Sketch", "/services#service-04"],
-  ["Product Design", "/services#service-05"],
-  ["Graphic Design", "/services#service-06"],
-  ["Website Design & Development", "/services#service-07"],
-  ["App Building & Development", "/services#service-08"],
-  ["Image Editing", "/services#service-09"],
-  ["Video Editing", "/services#service-10"],
-  ["Product Promo", "/services#service-11"],
-  ["SEO", "/services#service-12"],
-  ["Marketing Campaigns", "/services#service-13"],
-] as const;
+const serviceLinks = serviceData.map((service) => ({
+  label: service.name,
+  href: `/services/${getServiceSlug(service)}`,
+}));
 
 function LogoMark() {
   return (
@@ -154,7 +144,7 @@ export function HomeNavbar() {
             </div>
 
             <div className="grid grid-cols-3 gap-x-3 gap-y-1 p-5">
-              {services.map(([label, href], index) => (
+              {serviceLinks.map(({ label, href }, index) => (
                 <Link
                   key={label}
                   href={href}
