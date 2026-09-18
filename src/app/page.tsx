@@ -2,12 +2,13 @@ import Link from "next/link";
 import { DarkHomeHero } from "@/components/DarkHomeHero";
 import { HomeHeroContent } from "@/components/HomeHeroContent";
 import { HomeImageShowcase } from "@/components/HomeImageShowcase";
+import { HomeIndustriesMarquee } from "@/components/HomeIndustriesMarquee";
 import { HomeMotionMarquee } from "@/components/HomeMotionMarquee";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { HomePartnerSection } from "@/components/HomePartnerSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
-import { industries, testimonials } from "@/data/site";
+import { testimonials } from "@/data/site";
 
 export default function HomePage() {
   return (
@@ -31,18 +32,10 @@ export default function HomePage() {
       </div>
 
       <main>
+        <HomeIndustriesMarquee />
         <HomeImageShowcase />
         <HomePartnerSection />
         <HomeMotionMarquee />
-
-        <section className="section section-tight border-section">
-          <div className="shell">
-            <p className="section-kicker">Industries served</p>
-            <div className="chip-row">
-              {industries.map((item) => <span className="chip" key={item}>{item}</span>)}
-            </div>
-          </div>
-        </section>
 
         <section className="section alt-section">
           <div className="shell two-col">
