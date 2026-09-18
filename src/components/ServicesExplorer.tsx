@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { services } from "@/data/site";
+import { getServiceSlug, services } from "@/data/site";
 
 export function ServicesExplorer() {
   const [active, setActive] = useState(0);
@@ -54,7 +54,7 @@ export function ServicesExplorer() {
                 <h1>{service.name}</h1>
                 <p className="lead">{service.description}</p>
                 <div className="chip-row">{service.chips.map((chip) => <span className="chip" key={chip}>{chip}</span>)}</div>
-                <div className="button-row"><Link href={`/start-a-project?service=${service.id}`} className="button button-primary">Start with this service</Link><Link href="/pricing" className="button">View pricing</Link></div>
+                <div className="button-row"><Link href={`/services/${getServiceSlug(service)}`} className="button button-primary">View service</Link><Link href={`/start-a-project?service=${service.id}`} className="button">Start a project</Link><Link href="/pricing" className="button">View pricing</Link></div>
               </div>
               <div className="system-card service-system-card">
                 <span className="label">SERVICE MODULE</span>
