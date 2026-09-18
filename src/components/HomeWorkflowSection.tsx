@@ -76,7 +76,7 @@ function FlowNode({
 
   return (
     <div
-      className={`svl-workflow-node absolute z-10 w-[178px] rounded-[18px] border border-black/[0.08] bg-white/95 p-3.5 shadow-[0_16px_42px_rgba(0,0,0,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-[#151515]/95 dark:shadow-[0_18px_46px_rgba(0,0,0,0.38)] ${className}`}
+      className={`svl-workflow-node absolute z-10 min-h-[88px] w-[210px] rounded-[18px] border border-black/[0.08] bg-white/95 p-4 shadow-[0_16px_42px_rgba(0,0,0,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-[#151515]/95 dark:shadow-[0_18px_46px_rgba(0,0,0,0.38)] xl:w-[230px] ${className}`}
       style={{ animationDelay: `${-index * 0.72}s` }}
     >
       <div className="flex items-center gap-3">
@@ -84,14 +84,14 @@ function FlowNode({
           <WorkflowIcon index={index} />
         </span>
 
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/35 dark:text-white/35">
             {step.number}
           </p>
-          <p className="truncate text-[13px] font-bold tracking-[-0.02em] text-black dark:text-white">
+          <p className="text-[13px] font-bold leading-5 tracking-[-0.02em] text-black dark:text-white">
             {step.title}
           </p>
-          <p className="truncate text-[10px] text-black/45 dark:text-white/45">
+          <p className="mt-0.5 whitespace-normal text-[10px] leading-4 text-black/45 dark:text-white/45">
             {step.subtitle}
           </p>
         </div>
@@ -203,7 +203,7 @@ export function HomeWorkflowSection() {
           </p>
         </div>
 
-        <div className="mt-12 hidden md:block">
+        <div className="mt-12 hidden lg:block">
           <div className="relative min-h-[560px] overflow-hidden rounded-[30px] border border-black/[0.08] bg-[#f7f7f4] shadow-[0_24px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#111] dark:shadow-[0_26px_80px_rgba(0,0,0,0.35)]">
             <div
               aria-hidden="true"
@@ -266,8 +266,8 @@ export function HomeWorkflowSection() {
             </svg>
 
             <FlowNode index={0} className="left-7 top-1/2 -translate-y-1/2" />
-            <FlowNode index={1} className="left-[22%] top-8" />
-            <FlowNode index={2} className="left-[22%] bottom-8" />
+            <FlowNode index={1} className="left-[17%] top-8" />
+            <FlowNode index={2} className="left-[17%] bottom-8" />
 
             <div className="absolute left-1/2 top-1/2 z-20 size-40 -translate-x-1/2 -translate-y-1/2">
               <div className="svl-workflow-core relative size-full">
@@ -283,8 +283,8 @@ export function HomeWorkflowSection() {
               </div>
             </div>
 
-            <FlowNode index={3} className="right-[22%] top-8" />
-            <FlowNode index={4} className="right-[22%] bottom-8" />
+            <FlowNode index={3} className="right-[17%] top-8" />
+            <FlowNode index={4} className="right-[17%] bottom-8" />
             <FlowNode index={5} className="right-7 top-1/2 -translate-y-1/2" />
 
             <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-black/[0.07] bg-white/75 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/40 backdrop-blur dark:border-white/10 dark:bg-black/35 dark:text-white/40">
@@ -293,7 +293,7 @@ export function HomeWorkflowSection() {
           </div>
         </div>
 
-        <div className="relative mt-10 md:hidden">
+        <div className="relative mt-10 lg:hidden">
           <div
             aria-hidden="true"
             className="absolute bottom-8 left-[21px] top-8 w-px bg-black/12 dark:bg-white/12"
