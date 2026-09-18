@@ -156,8 +156,8 @@ export function HomeIndustriesMarquee() {
       aria-labelledby="svl-industries-title"
       className="overflow-hidden bg-white py-16 text-[#161616] dark:bg-[#0b0b0b] dark:text-[#f5f5f2] md:py-24"
     >
-      <div className="mx-auto w-full max-w-[1280px] overflow-hidden">
-        <div className="px-3 pb-9 md:px-6 md:pb-12">
+      <div className="w-full overflow-hidden">
+        <div className="px-4 pb-9 sm:px-6 md:px-10 md:pb-12 lg:px-14 xl:px-16">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-black/50 dark:text-white/45 md:text-xs">
             Specter Visual Lab · Cross-industry creative systems
           </p>
