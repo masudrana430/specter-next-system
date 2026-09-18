@@ -5,9 +5,9 @@ import { HomeImageShowcase } from "@/components/HomeImageShowcase";
 import { HomeIndustriesMarquee } from "@/components/HomeIndustriesMarquee";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { HomePartnerSection } from "@/components/HomePartnerSection";
+import { HomeReviewsSection } from "@/components/HomeReviewsSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
-import { testimonials } from "@/data/site";
 
 export default function HomePage() {
   return (
@@ -69,24 +69,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section alt-section">
-          <div className="shell">
-            <div className="section-heading">
-              <span className="eyebrow">Client Stories</span>
-              <h2>What Clients Say</h2>
-            </div>
-            <div className="card-grid four-col">
-              {testimonials.map((item) => (
-                <article className="card" key={item.name}>
-                  <div className="stars">★★★★★</div>
-                  <p>“{item.quote}”</p>
-                  <h3>{item.name}</h3>
-                  <small>{item.role}</small>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HomeReviewsSection />
 
         <section className="section alt-section">
           <div className="shell two-col">
