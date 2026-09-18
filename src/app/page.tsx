@@ -33,8 +33,8 @@ export default function HomePage() {
       </div>
 
       <main>
-        <HomeServiceShowcase />
         <HomeIndustriesMarquee />
+        <HomeServiceShowcase />
         <HomeImageShowcase />
         <HomePartnerSection />
 
