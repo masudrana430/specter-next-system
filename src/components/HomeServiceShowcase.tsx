@@ -204,7 +204,7 @@ export function HomeServiceShowcase() {
           </div>
         </div>
 
-        <div className="relative h-[350px] overflow-hidden rounded-[22px] sm:h-[430px] lg:h-[470px]">
+        <div className="relative h-[380px] overflow-hidden rounded-[22px] sm:h-[470px] lg:h-[520px]">
           {showcaseItems.map((item, index) => {
             const slot =
               (index - activeIndex + showcaseItems.length) %
