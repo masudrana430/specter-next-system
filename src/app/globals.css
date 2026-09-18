@@ -23,6 +23,7 @@
   --dark-card-text: #ffffff;
   --radius: 16px;
   --shadow: 0 16px 45px rgba(17, 24, 39, .08);
+  --site-max-width: 1280px;
 }
 
 html[data-theme="dark"] {
@@ -59,7 +60,7 @@ button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 img, video { max-width: 100%; }
 
-.shell, .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+.shell, .container, .site-frame { width: min(var(--site-max-width), calc(100% - 48px)); margin-inline: auto; }
 .narrow { max-width: 820px; }
 .center { text-align: center; margin-inline: auto; }
 .section { padding: 88px 0; }
