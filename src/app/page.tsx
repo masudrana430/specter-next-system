@@ -6,6 +6,7 @@ import { HomeIndustriesMarquee } from "@/components/HomeIndustriesMarquee";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { HomePartnerSection } from "@/components/HomePartnerSection";
 import { HomeReviewsSection } from "@/components/HomeReviewsSection";
+import { HomeServiceShowcase } from "@/components/HomeServiceShowcase";
 import { HomeWorkflowSection } from "@/components/HomeWorkflowSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
@@ -32,6 +33,7 @@ export default function HomePage() {
       </div>
 
       <main>
+        <HomeServiceShowcase />
         <HomeIndustriesMarquee />
         <HomeImageShowcase />
         <HomePartnerSection />
