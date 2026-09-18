@@ -199,35 +199,37 @@ export function HomeMotionMarquee() {
         }
       `}</style>
 
-      <div className="px-[5vw] pb-11 md:pb-14">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-black/50 dark:text-white/45 md:text-xs">
-          Specter Visual Lab · Motion, product & campaign systems
-        </p>
-        <h2
-          id="svl-motion-title"
-          className="mt-3 max-w-[1300px] text-[clamp(3.4rem,9.5vw,9rem)] font-semibold uppercase leading-[0.82] tracking-[-0.065em]"
-        >
-          Ideas in motion
-        </h2>
-        <p className="mt-6 max-w-[640px] text-sm leading-6 text-black/58 dark:text-white/55 md:text-base md:leading-7">
-          A moving reel of the visual language Specter builds across digital products, campaigns, brand systems, and launch-ready creative. Scroll to accelerate the work.
-        </p>
-      </div>
-
-      <div className="grid gap-3">
-        <div className="overflow-hidden py-1.5">
-          <div ref={rowOneTrackRef} className="flex w-max will-change-transform">
-            <MotionGroup images={ROW_ONE} firstGroupRef={rowOneGroupRef} />
-            <MotionGroup images={ROW_ONE} />
-            <MotionGroup images={ROW_ONE} />
-          </div>
+      <div className="mx-auto w-full max-w-[1280px] overflow-hidden">
+        <div className="px-3 pb-11 md:px-6 md:pb-14">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-black/50 dark:text-white/45 md:text-xs">
+            Specter Visual Lab · Motion, product & campaign systems
+          </p>
+          <h2
+            id="svl-motion-title"
+            className="mt-3 max-w-[1180px] text-[clamp(3.4rem,9.5vw,9rem)] font-semibold uppercase leading-[0.82] tracking-[-0.065em]"
+          >
+            Ideas in motion
+          </h2>
+          <p className="mt-6 max-w-[640px] text-sm leading-6 text-black/58 dark:text-white/55 md:text-base md:leading-7">
+            A moving reel of the visual language Specter builds across digital products, campaigns, brand systems, and launch-ready creative. Scroll to accelerate the work.
+          </p>
         </div>
 
-        <div className="overflow-hidden py-1.5">
-          <div ref={rowTwoTrackRef} className="flex w-max will-change-transform">
-            <MotionGroup images={ROW_TWO} firstGroupRef={rowTwoGroupRef} />
-            <MotionGroup images={ROW_TWO} />
-            <MotionGroup images={ROW_TWO} />
+        <div className="grid gap-3">
+          <div className="overflow-hidden py-1.5">
+            <div ref={rowOneTrackRef} className="flex w-max will-change-transform">
+              <MotionGroup images={ROW_ONE} firstGroupRef={rowOneGroupRef} />
+              <MotionGroup images={ROW_ONE} />
+              <MotionGroup images={ROW_ONE} />
+            </div>
+          </div>
+
+          <div className="overflow-hidden py-1.5">
+            <div ref={rowTwoTrackRef} className="flex w-max will-change-transform">
+              <MotionGroup images={ROW_TWO} firstGroupRef={rowTwoGroupRef} />
+              <MotionGroup images={ROW_TWO} />
+              <MotionGroup images={ROW_TWO} />
+            </div>
           </div>
         </div>
       </div>
