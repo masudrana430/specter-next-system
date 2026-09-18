@@ -52,11 +52,11 @@ const showcaseItems = seeds.flatMap((seed) => {
 });
 
 const slotClasses = [
-  "left-0 h-full w-[72%] sm:w-[66%]",
-  "left-[73.5%] h-[88%] w-[18%] sm:left-[67.5%] sm:w-[16%]",
-  "left-[92.5%] h-[76%] w-[11%] sm:left-[84.5%] sm:w-[9.5%]",
-  "left-[104.5%] h-[64%] w-[7%] sm:left-[95%] sm:w-[6%]",
-  "left-[112.5%] h-[52%] w-[5%] sm:left-[102%] sm:w-[4.5%]",
+  "left-0 h-full w-[80%] sm:w-[76%]",
+  "left-[81.5%] h-[88%] w-[13%] sm:left-[77.5%] sm:w-[11%]",
+  "left-[95.5%] h-[76%] w-[8%] sm:left-[89.5%] sm:w-[7%]",
+  "left-[104.5%] h-[64%] w-[5.5%] sm:left-[97.5%] sm:w-[4.5%]",
+  "left-[111%] h-[52%] w-[4%] sm:left-[103%] sm:w-[3.5%]",
 ] as const;
 
 function KineticText({ text }: { text: string }) {
@@ -219,14 +219,32 @@ export function HomeServiceShowcase() {
                 className={`group absolute bottom-0 overflow-hidden rounded-[18px] border border-white/10 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.14)] transition-[left,width,height,transform,opacity] duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.38)] ${slotClasses[slot]}`}
                 style={{ zIndex: 20 - slot }}
               >
-                <img
-                  src={item.image}
-                  alt=""
-                  draggable={false}
-                  className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-                />
+                {isActive ? (
+                  <>
+                    <img
+                      src={item.image}
+                      alt=""
+                      aria-hidden="true"
+                      draggable={false}
+                      className="absolute inset-0 size-full scale-110 object-cover opacity-45 blur-2xl"
+                    />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      draggable={false}
+                      className="relative size-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.015]"
+                    />
+                  </>
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    draggable={false}
+                    className="size-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
+                  />
+                )}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/22 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/16 to-transparent" />
 
                 <div
                   className={`absolute inset-x-0 bottom-0 p-5 text-white transition-[opacity,transform] duration-500 sm:p-6 ${isActive ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
