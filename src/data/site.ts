@@ -156,6 +156,19 @@ export const services: Service[] = [
   },
 ];
 
+
+export function getServiceSlug(service: Pick<Service, "name">) {
+  return service.name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function getServiceBySlug(slug: string) {
+  return services.find((service) => getServiceSlug(service) === slug.toLowerCase());
+}
+
 export const industries = [
   "E-commerce",
   "Fashion & Apparel",
