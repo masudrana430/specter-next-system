@@ -223,7 +223,7 @@ function SectionOne({ isMobile }: { isMobile: boolean }) {
     <section
       ref={setSection}
       aria-label="Specter integrated studio system"
-      className="flex min-h-screen w-full flex-col gap-2 overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-5"
+      className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col gap-2 overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-6"
     >
       {sectionOneBars.map((feature, index) => (
         <MaskedPanel
@@ -287,7 +287,7 @@ function SectionTwo({ isMobile }: { isMobile: boolean }) {
     <section
       ref={setSection}
       aria-label="Specter capabilities gallery"
-      className="min-h-screen w-full overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-5"
+      className="mx-auto min-h-screen w-full max-w-[1280px] overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-6"
     >
       <div className="grid min-h-[920px] grid-cols-1 grid-rows-[auto_auto_auto_auto] gap-2 md:h-full md:min-h-0 md:grid-cols-2 md:grid-rows-[1fr_1fr_.8fr]">
         <MaskedPanel
@@ -368,7 +368,7 @@ function SectionThree() {
     <section
       ref={(node) => { reveal.containerRef.current = node; }}
       aria-label="Specter studio operating model"
-      className="min-h-screen w-full overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-5"
+      className="mx-auto min-h-screen w-full max-w-[1280px] overflow-hidden bg-white px-3 pb-2 pt-2 dark:bg-[#0b0b0b] md:h-screen md:px-6"
     >
       <div className="grid min-h-[1120px] grid-cols-1 gap-2 md:h-full md:min-h-0 md:grid-cols-2">
         <div className="flex min-h-0 flex-col gap-2">
@@ -422,10 +422,10 @@ export function HomeImageShowcase() {
   const isMobile = useIsMobile();
 
   return (
-    <>
+    <div className="w-full bg-white dark:bg-[#0b0b0b]">
       <SectionOne isMobile={isMobile} />
       <SectionTwo isMobile={isMobile} />
       <SectionThree />
-    </>
+    </div>
   );
 }
