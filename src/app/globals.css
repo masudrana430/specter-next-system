@@ -262,3 +262,21 @@ img, video { max-width: 100%; }
   .phone-row { grid-template-columns: 1fr; }
   .inline-fields { grid-template-columns: 1fr; }
 }
+
+
+/* GearUp-style circular theme reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-svl-theme-vt="active"]::view-transition-new(root) {
+  clip-path: var(--svl-theme-vt-clip-from);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-svl-theme-vt="active"]::view-transition-new(root) {
+    clip-path: none;
+  }
+}
