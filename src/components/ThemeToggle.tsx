@@ -17,6 +17,7 @@ type ViewTransitionDocument = Document & {
 
 const STORAGE_KEY = "svl-theme";
 const THEME_TRANSITION_DURATION = 650;
+const THEME_TRANSITION_EASING = "ease-in-out";
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
@@ -193,7 +194,7 @@ export function ThemeToggle({ variant = "switch" }: ThemeToggleProps) {
           { clipPath },
           {
             duration: THEME_TRANSITION_DURATION,
-            easing: "ease-in-out",
+            easing: THEME_TRANSITION_EASING,
             fill: "forwards",
             pseudoElement: "::view-transition-new(root)",
           },
