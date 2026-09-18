@@ -6,6 +6,7 @@ import { HomeIndustriesMarquee } from "@/components/HomeIndustriesMarquee";
 import { HomeNavbar } from "@/components/HomeNavbar";
 import { HomePartnerSection } from "@/components/HomePartnerSection";
 import { HomeReviewsSection } from "@/components/HomeReviewsSection";
+import { HomeWorkflowSection } from "@/components/HomeWorkflowSection";
 import { BeforeAfterDemo } from "@/components/HomeInteractive";
 import { ReferenceHomeHero } from "@/components/ReferenceHomeHero";
 
@@ -69,6 +70,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        <HomeWorkflowSection />
         <HomeReviewsSection />
 
         <section className="section alt-section">
